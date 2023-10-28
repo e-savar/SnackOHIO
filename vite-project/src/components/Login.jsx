@@ -3,7 +3,7 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div>
+    <div style={styles.mainPage}>
       <div style={styles.loginBox}>
         <h2 style={styles.textcolor}>Login</h2>
         <form>
@@ -18,10 +18,17 @@ const Login = () => {
           <button type="submit">Login</button>
         </form>
       </div>
-    </div>
+      </div>
   )
 };
 const styles = {
+  mainPage: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   loginBox: {
     width: '300px',
     padding: '20px',

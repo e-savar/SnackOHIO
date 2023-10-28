@@ -1,9 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
-import Navbar from './components/Navbar';
-import Products from './components/Products';
 
 const router = createBrowserRouter([
   {
@@ -22,8 +20,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <RouterProvider router={router} />
-    
+      <RouterProvider router={router} />
   );
 };
 
