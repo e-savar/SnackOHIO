@@ -33,6 +33,11 @@ const styles = {
     },
     textcolor: {
       color: 'black'
+    },
+    slide: {
+      opacity: '0',
+      transitionDuration: '1s ease',
+      transform: 'scale(1.00)',
     }
   };
   
