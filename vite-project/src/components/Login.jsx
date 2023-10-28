@@ -19,7 +19,7 @@ const Login = () => {
             <TextField style={{marginLeft: '10px', marginBottom: '10px', width: '260px' }} label="Password" variant="standard"/>
           </div>
         </div>
-        <Button variant="contained" sx={{ backgroundColor: '#f49d4e', color: '#000000', marginTop: '20px'}}>Login</Button>
+        <Button variant="contained" sx={{ backgroundColor: '#f49d4e', color: '#000000', marginTop: '20px'}} href='/'>Login</Button>
       </div>
       </div>
   )
