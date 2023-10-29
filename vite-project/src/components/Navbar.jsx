@@ -23,7 +23,7 @@ export default function Navbar() {
       <AppBar color="orange">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            SnackOHIO
+            Sales Solutions
           </Typography>
           <Button href="/" color="inherit">Home</Button>
           <Button href="/login" color="inherit">Login</Button>
