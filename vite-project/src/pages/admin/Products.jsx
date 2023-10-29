@@ -18,7 +18,8 @@ import {
   randomId,
   randomTraderName,
 } from '@mui/x-data-grid-generator';
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
+import api from "/src/lib/api"
 
 const initialRows = [
   {
@@ -46,6 +47,22 @@ const styles = {
   },
 }
 function EditToolbar(props) {
+    const [products, setProducts] = useState([])
+
+    const fetchProducts = async () => {
+      try {
+        const userProductResponse = await api.user.product.list()
+        setProducts(userProductResponse.data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  
+    useEffect(() => {
+      fetchProducts()
+      // eslint-disable-next-line
+    }, [])
+
   const { setRows, setRowModesModel } = props;
 
   const handleClick = () => {
