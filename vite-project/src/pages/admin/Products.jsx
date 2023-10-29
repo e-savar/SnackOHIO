@@ -25,9 +25,9 @@ const initialRows = [
   {
     id: 1,
     name: "CholeCap",
-    imgLink: "image url",
-    dataUrl: "data url",
-    role: "desc",
+    imgLink: "https://media.istockphoto.com/id/1386029884/vector/pills-capsules-in-medical-bottle-isolated-on-white-background-pill-bottle-medicine-container.jpg?s=612x612&w=0&k=20&c=OXL0x91F0Ke2AOs2mNRpET21T5LA0y1bIFT_pPwVd_0=",
+    dataUrl: "./MedChart",
+    role: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
 ];
 const styles = {
