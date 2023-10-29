@@ -7,7 +7,9 @@ import React, { useState } from 'react';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const isLoginEnabled = username === 'user' && password === 'password';
+  const validUsername = 'AdminVerteo';
+  const validPassword = 'password';
+  const isLoginEnabled = username === validUsername && password === validPassword;
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
