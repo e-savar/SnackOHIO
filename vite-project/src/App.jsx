@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Products from './components/Products';
 import AdminProducts from './pages/admin/products'
 
+import { connect } from 'react-redux'
+import { clearUser } from './reducers/user'
+
 import api from './lib/api.js'
 
-const router = createBrowserRouter([
+let routes = createBrowserRouter([
   {
     path: "/",
     element: <Home />
@@ -26,7 +29,8 @@ const router = createBrowserRouter([
   }
 ])
 
-const App = () => {
+const App = (props) => {
+  const { token, role } = props
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -48,19 +52,39 @@ const App = () => {
   
   fetchProducts()
 
-  // let routes = (
+  if (role === 'ADMIN'){
+    routes = createBrowserRouter([
+      {
+        path: "/",
+        element: <AdminProducts />
+      }
+    ])
+    //  routes = (
+    //   <Router>
+    //     <Switch>
+    //       <Route path="/admin/products" component={AdminProducts} />
+    //       <Redirect to="/admin/products" />
+    //     </Switch>
+    //   </Router>
+    //  )
+   }
 
-  // )
-
-  // if (role === 'ADMIN'){
-  //   routes = ()
-  // } else {
-  //   routes = ()
-  // }
+   console.log(routes)
 
   return (
-      <RouterProvider router={router} />
+      <RouterProvider router={routes} />
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    token : state.user.token,
+    role: state.user.role,
+  }
+}
+
+const mapDispatchToProps = {
+  clearUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
