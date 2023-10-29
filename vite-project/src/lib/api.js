@@ -1,43 +1,79 @@
-import axios from "axios";
+import axios from 'axios'
+import { store } from '/src/store'
 
-export const instance = axios.create();
+export const instance = axios.create({
+  baseURL: 'https://localhost:3001',
+})
 
-const adminProgramGet = ({ id }) => {
-  return post(`/admin/program/${id}`);
-};
+instance.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    if (error.response && error.response.data && error.response.data.message)
+      error.message = error.response.data.message
 
-const adminProgramList = () => {
-  return get(`/admin/program/list`);
-};
+    return Promise.reject(error)
+  },
+)
 
-const adminProgramCreate = ({ name, description }) => {
-  return post(`/admin/program/create`, {
+export const authInstance = () => {
+  const state = store.getState()
+  const authToken = state.user.authToken
+  instance.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
+  return instance
+}
+
+const adminProductGet = ({ id }) => {
+  return authInstance().get(`/admin/product/${id}`)
+}
+
+const adminProductList = () => {
+  return authInstance().get(`/admin/product/list`)
+}
+
+const adminProductCreate = ({ name, description }) => {
+  return authInstance().post(`/admin/product/create`, {
     name,
     description,
-  });
-};
+  })
+}
 
-const adminProgramUpdate = ({ id, name, description }) => {
-  return post(`/admin/program/update/${id}`, {
+const adminProductUpdate = ({ id, name, description }) => {
+  return authInstance().post(`/admin/product/update/${id}`, {
     name,
     description,
-  });
-};
+  })
+}
 
-const adminProgramDelete = ({ id }) => {
-  return post(`/admin/program/delete/${id}`);
-};
+const adminProductDelete = ({ id }) => {
+  return authInstance().post(`/admin/product/delete/${id}`)
+}
+
+const userProductGet = ({ id }) => {
+  return authInstance().get(`/product/${id}`)
+}
+
+const userProductList = () => {
+  return authInstance().get(`/product/list`)
+}
 
 const api = {
   admin: {
-    program: {
-      get: adminProgramGet,
-      list: adminProgramList,
-      create: adminProgramCreate,
-      update: adminProgramUpdate,
-      delete: adminProgramDelete,
+    product: {
+      get: adminProductGet,
+      list: adminProductList,
+      create: adminProductCreate,
+      update: adminProductUpdate,
+      delete: adminProductDelete,
     },
   },
-};
+  user: {
+    product: {
+      get: userProductGet,
+      list: userProductList,
+    },
+  },
+}
 
-export default api;
+export default api
