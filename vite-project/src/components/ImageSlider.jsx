@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 
-
 const slideStyles = {
   width: "100%",
   height: "100%",
@@ -48,21 +47,32 @@ const dotStyle = {
   fontSize: "20px",
 };
 
+const highlightedDotStyle = {
+  margin: "0 3px",
+  cursor: "pointer",
+  fontSize: "20px",
+  color: "orange", // Change the color to indicate it's highlighted
+};
+
 const ImageSlider = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
   };
+
   const goToNext = () => {
     const isLastSlide = currentIndex === slides.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+
   const goToSlide = (slideIndex) => {
     setCurrentIndex(slideIndex);
   };
+
   const slideStylesWidthBackground = {
     ...slideStyles,
     backgroundImage: `url(${slides[currentIndex].url})`,
@@ -85,7 +95,7 @@ const ImageSlider = ({ slides }) => {
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
           <div
-            style={dotStyle}
+            style={slideIndex === currentIndex ? highlightedDotStyle : dotStyle}
             key={slideIndex}
             onClick={() => goToSlide(slideIndex)}
           >
