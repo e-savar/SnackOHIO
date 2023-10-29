@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
+
 
 const slideStyles = {
   width: "100%",
@@ -76,7 +78,10 @@ const ImageSlider = ({ slides }) => {
           ❱
         </div>
       </div>
-      <div style={slideStylesWidthBackground}></div>
+      {/* Wrap the image in a Link component */}
+      <Link to="/products">
+        <div style={slideStylesWidthBackground}></div>
+      </Link>
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
           <div
