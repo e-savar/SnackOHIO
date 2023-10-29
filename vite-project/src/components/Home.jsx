@@ -14,10 +14,14 @@ const Home = () => {
     margin: "0 auto",
   };
   return (
-    <div style={styles.mainPage}>
-        <div><h1>Products</h1></div>
-      <div style={containerStyles}>
-        <ImageSlider slides={slides} />
+    <div>
+      <div style={styles.aboveCenter}>
+        <h1>Products</h1>
+      </div>
+      <div style={styles.mainPage}>
+        <div style={containerStyles}>
+          <ImageSlider slides={slides} />
+        </div>
       </div>
     </div>
   );
@@ -26,17 +30,28 @@ const Home = () => {
 const styles = {
     mainPage: {
       width: '100vw',
-      height: '100vh',
+      height: '50vh',
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+    },
+    aboveCenter: { 
+      width: '100vw',
+      height: '10vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     textcolor: {
-      color: 'black'
+      color: 'black',
     },
     slide: {
       opacity: '0',
       transitionDuration: '1s ease',
+    },
+    activeSlide: {
+      opacity: '1',
+      transitionDuration: '1s',
       transform: 'scale(1.00)',
     }
   };
