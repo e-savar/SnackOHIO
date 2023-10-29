@@ -1,21 +1,67 @@
-import React from 'react';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
 
-const Products = () => {
-  return <div><div style={styles.mainPage}>
-    <h1 style={styles.productHeader}>Product Name</h1>
-    <div style={styles.whitebkg}>
-      <img style={styles.medImage} src="https://media.istockphoto.com/id/1386029884/vector/pills-capsules-in-medical-bottle-isolated-on-white-background-pill-bottle-medicine-container.jpg?s=612x612&w=0&k=20&c=OXL0x91F0Ke2AOs2mNRpET21T5LA0y1bIFT_pPwVd_0="/> 
-    </div>
-    <div style={styles.chartBkg}>
-      <div style={styles.chart}>
-      </div>
-    </div>
-  </div>
-  <div style={styles.bigDescription}>
-    <h4 style={styles.descTxt}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4>
-  </div>
-  </div>;
-};
+const columns = [
+  { field: 'id', headerName: 'Product', width: 90 },
+  {
+    field: 'imgLink',
+    headerName: 'Image Link',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'dataLink',
+    headerName: 'Data Link',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'desc',
+    headerName: 'Description',
+    type: 'number',
+    width: 110,
+    editable: true,
+  },
+];
+
+const rows = [
+  { id: 1, imgLink: 'Snow', dataLink: 'Jon', desc: 35 },
+  { id: 2, imgLink: 'Lannister', dataLink: 'Cersei', desc: 42 },
+  { id: 3, imgLink: 'Lannister', dataLink: 'Jaime', desc: 45 },
+  { id: 4, imgLink: 'Stark', dataLink: 'Arya', desc: 16 },
+  { id: 5, imgLink: 'Targaryen', dataLink: 'Daenerys', desc: null },
+  { id: 6, imgLink: 'Melisandre', dataLink: null, desc: 150 },
+  { id: 7, imgLink: 'Clifford', dataLink: 'Ferrara', desc: 44 },
+  { id: 8, imgLink: 'Frances', dataLink: 'Rossini', desc: 36 },
+  { id: 9, imgLink: 'Roxie', dataLink: 'Harvey', desc: 65 },
+];
+
+export default function DataGridDemo() {
+  return (
+    <Box sx={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        sx ={{
+          border: 2,
+          Color: 'white',
+          borderColor: 'white',          
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
+    </Box>
+  );
+}
 
 const styles = {
   mainPage: {
@@ -82,4 +128,3 @@ const styles = {
   }
 
 }
-export default Products;
