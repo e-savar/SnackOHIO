@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Products from './components/Products';
+import AdminProducts from './pages/admin/products'
 
 import api from './lib/api.js'
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <Products />
+  },
+  {
+    path: "/adminproducts",
+    element: <AdminProducts />
   }
 ])
 
@@ -42,6 +47,16 @@ const App = () => {
   }
   
   fetchProducts()
+
+  // let routes = (
+
+  // )
+
+  // if (role === 'ADMIN'){
+  //   routes = ()
+  // } else {
+  //   routes = ()
+  // }
 
   return (
       <RouterProvider router={router} />

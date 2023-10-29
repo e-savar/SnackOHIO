@@ -28,6 +28,7 @@ export default function Navbar() {
           <Button href="/" color="inherit">Home</Button>
           <Button href="/login" color="inherit">Login</Button>
           <Button href="/products" color="inherit">Products</Button>
+          <Button href="/adminproducts" color="inherit">AdminProducts</Button>
         </Toolbar>
       </AppBar>
       </ThemeProvider>
