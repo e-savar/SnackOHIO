@@ -14,7 +14,6 @@ const Products = () => {
     </div>
   </div>
   <div style={styles.bigDescription}>
-    <h2 style={styles.blackTxt}>Product name</h2>
     <h4 style={styles.descTxt}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4>
   </div>
   </div>;
@@ -23,7 +22,7 @@ const Products = () => {
 const styles = {
   mainPage: {
     width: '100vw',
-    height: '100vh',
+    height: '90vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -51,6 +50,7 @@ const styles = {
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
+    marginTop: '7vw',
   },
   whitebkg: {
     width: '30vw',
@@ -62,6 +62,7 @@ const styles = {
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
+    marginTop: '7vw',
     marginRight: '8vw'
   },
   bigDescription: {
