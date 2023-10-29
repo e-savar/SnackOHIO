@@ -14,8 +14,11 @@ const Home = () => {
   };
   return (
     <div>
-      <div style={styles.aboveCenter}>
+      <div style={styles.aboveCenter1}>
         <h1>Products</h1>
+      </div>
+      <div style={styles.aboveCenter2}>
+        <p>Click on the Image to See Product Information!</p>
       </div>
       <div style={styles.mainPage}>
         <div style={containerStyles}>
@@ -34,15 +37,19 @@ const styles = {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    aboveCenter: { 
+    aboveCenter1: { 
       width: '100vw',
       height: '10vh',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
     },
-    textcolor: {
-      color: 'black',
+    aboveCenter2: { 
+      width: '100vw',
+      height: '5vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     slide: {
       opacity: '0',
