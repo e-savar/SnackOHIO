@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const slideStyles = {
   width: "100%",
@@ -7,6 +7,7 @@ const slideStyles = {
   borderRadius: "10px",
   backgroundSize: "cover",
   backgroundPosition: "center",
+  transition: "transform 1s, opacity 1s", // Add transitions for transform and opacity
 };
 
 const rightArrowStyles = {
@@ -56,27 +57,43 @@ const highlightedDotStyle = {
 
 const ImageSlider = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [transformValue, setTransformValue] = useState("scale(1.08)"); // Initial scale value
+  const [opacityValue, setOpacityValue] = useState(0);
+
+  const slideStylesWithBackground = {
+    ...slideStyles,
+    backgroundImage: `url(${slides[currentIndex].url})`,
+    transform: transformValue,
+    opacity: opacityValue,
+  };
 
   const goToPrevious = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
+    setTransformValue("scale(1.08)"); // Set the scaling value for transition
+    setOpacityValue(0); // Set the opacity to 0
+    setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
   };
 
   const goToNext = () => {
-    const isLastSlide = currentIndex === slides.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
+    setTransformValue("scale(1.08)"); // Set the scaling value for transition
+    setOpacityValue(0); // Set the opacity to 0
+    setCurrentIndex((currentIndex + 1) % slides.length);
   };
 
   const goToSlide = (slideIndex) => {
+    setTransformValue("scale(1.08)"); // Set the scaling value for transition
+    setOpacityValue(0); // Set the opacity to 0
     setCurrentIndex(slideIndex);
   };
 
-  const slideStylesWidthBackground = {
-    ...slideStyles,
-    backgroundImage: `url(${slides[currentIndex].url})`,
-  };
+  useEffect(() => {
+    // After the opacity has transitioned to 0, update the opacity to 1 and scale to 1
+    if (opacityValue === 0) {
+      setTimeout(() => {
+        setOpacityValue(1);
+        setTransformValue("scale(1)");
+      }, 1000); // 1 second for the transition
+    }
+  }, [opacityValue]);
 
   return (
     <div style={sliderStyles}>
@@ -90,7 +107,7 @@ const ImageSlider = ({ slides }) => {
       </div>
       {/* Wrap the image in a Link component */}
       <Link to="/products">
-        <div style={slideStylesWidthBackground}></div>
+        <div style={slideStylesWithBackground}></div>
       </Link>
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
