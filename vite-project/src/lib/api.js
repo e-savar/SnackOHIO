@@ -2,7 +2,7 @@ import axios from 'axios'
 import { store } from '/src/store'
 
 export const instance = axios.create({
-  baseURL: 'https://localhost:3001',
+  baseURL: 'http://localhost:3001',
 })
 
 instance.interceptors.response.use(

@@ -10,7 +10,6 @@ const Home = () => {
 
   const fetchProducts = async () => {
     try {
-      console.log('test')
       const userProductResponse = await api.user.product.list()
       setProducts(userProductResponse.data)
     } catch (e) {
@@ -36,6 +35,11 @@ const Home = () => {
     height: "42vh",
     margin: "0 auto",
   };
+
+  // const visualProducts = [
+  //   products.
+  // ]
+
   return (
     <div>
       <div style={styles.aboveCenter1}>
