@@ -20,46 +20,13 @@ import {
   randomArrayItem,
 } from '@mui/x-data-grid-generator';
 
-const roles = ['Market', 'Finance', 'Development'];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
-
 const initialRows = [
   {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 25,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 36,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 19,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 28,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
-  },
-  {
-    id: randomId(),
-    name: randomTraderName(),
-    age: 23,
-    joinDate: randomCreatedDate(),
-    role: randomRole(),
+    id: 1,
+    name: "CholeCap",
+    imgLink: "image url",
+    dataUrl: "data url",
+    role: "desc",
   },
 ];
 
@@ -68,7 +35,7 @@ function EditToolbar(props) {
 
   const handleClick = () => {
     const id = randomId();
-    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    setRows((oldRows) => [...oldRows, { id, name: '', imgLink: '', isNew: true }]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
@@ -129,30 +96,26 @@ export default function FullFeaturedCrudGrid() {
   };
 
   const columns = [
-    { field: 'name', headerName: 'Name', width: 180, editable: true },
+    { field: 'name', headerName: 'Product Name', width: 200, editable: true },
     {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 80,
+      field: 'imgLink',
+      headerName: 'Image Link',
+      width: 200,
       align: 'left',
       headerAlign: 'left',
       editable: true,
     },
     {
-      field: 'joinDate',
-      headerName: 'Join date',
-      type: 'date',
-      width: 180,
+      field: 'dataUrl',
+      headerName: 'Data Link',
+      width: 200,
       editable: true,
     },
     {
       field: 'role',
-      headerName: 'Department',
-      width: 220,
+      headerName: 'Description',
+      width: 200,
       editable: true,
-      type: 'singleSelect',
-      valueOptions: ['Market', 'Finance', 'Development'],
     },
     {
       field: 'actions',
@@ -207,6 +170,7 @@ export default function FullFeaturedCrudGrid() {
       sx={{
         height: 500,
         width: '100%',
+        backgroundColor: 'white', // Set background color to white
         '& .actions': {
           color: 'text.secondary',
         },
@@ -228,9 +192,6 @@ export default function FullFeaturedCrudGrid() {
         }}
         slotProps={{
           toolbar: { setRows, setRowModesModel },
-        }}
-        sx = {{
-          color: 'white',
         }}
       />
     </Box>
