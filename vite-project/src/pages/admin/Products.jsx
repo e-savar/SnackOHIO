@@ -1,130 +1,238 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+  GridRowModes,
+  DataGrid,
+  GridToolbarContainer,
+  GridActionsCellItem,
+  GridRowEditStopReasons,
+} from '@mui/x-data-grid';
+import {
+  randomCreatedDate,
+  randomTraderName,
+  randomId,
+  randomArrayItem,
+} from '@mui/x-data-grid-generator';
 
-const columns = [
-  { field: 'id', headerName: 'Product', width: 90 },
+const roles = ['Market', 'Finance', 'Development'];
+const randomRole = () => {
+  return randomArrayItem(roles);
+};
+
+const initialRows = [
   {
-    field: 'imgLink',
-    headerName: 'Image Link',
-    width: 150,
-    editable: true,
+    id: randomId(),
+    name: randomTraderName(),
+    age: 25,
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
   },
   {
-    field: 'dataLink',
-    headerName: 'Data Link',
-    width: 150,
-    editable: true,
+    id: randomId(),
+    name: randomTraderName(),
+    age: 36,
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
   },
   {
-    field: 'desc',
-    headerName: 'Description',
-    type: 'number',
-    width: 110,
-    editable: true,
+    id: randomId(),
+    name: randomTraderName(),
+    age: 19,
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 28,
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
+  },
+  {
+    id: randomId(),
+    name: randomTraderName(),
+    age: 23,
+    joinDate: randomCreatedDate(),
+    role: randomRole(),
   },
 ];
 
-const rows = [
-  { id: 1, imgLink: 'Snow', dataLink: 'Jon', desc: 35 },
-  { id: 2, imgLink: 'Lannister', dataLink: 'Cersei', desc: 42 },
-  { id: 3, imgLink: 'Lannister', dataLink: 'Jaime', desc: 45 },
-  { id: 4, imgLink: 'Stark', dataLink: 'Arya', desc: 16 },
-  { id: 5, imgLink: 'Targaryen', dataLink: 'Daenerys', desc: null },
-  { id: 6, imgLink: 'Melisandre', dataLink: null, desc: 150 },
-  { id: 7, imgLink: 'Clifford', dataLink: 'Ferrara', desc: 44 },
-  { id: 8, imgLink: 'Frances', dataLink: 'Rossini', desc: 36 },
-  { id: 9, imgLink: 'Roxie', dataLink: 'Harvey', desc: 65 },
-];
+function EditToolbar(props) {
+  const { setRows, setRowModesModel } = props;
 
-export default function DataGridDemo() {
+  const handleClick = () => {
+    const id = randomId();
+    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+    }));
+  };
+
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        sx ={{
-          border: 2,
-          Color: 'white',
-          borderColor: 'white',          
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
-    </Box>
+    <GridToolbarContainer>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        Add Item
+      </Button>
+    </GridToolbarContainer>
   );
 }
 
-const styles = {
-  mainPage: {
-    width: '100vw',
-    height: '90vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  productHeader: {
-    position: 'absolute',
-    left: '50px',
-    top: '80px',
-  },
-  medImage: {
-    width: '375px',
-    height: '300px',
-  },
-  chart: {
-    width: '95%',
-    height: '95%',
-  },
-  chartBkg: {
-    width: '45vw',
-    height: '45vh',
-    padding: '20px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '7vw',
-  },
-  whitebkg: {
-    width: '30vw',
-    height: '45vh',
-    padding: '20px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '7vw',
-    marginRight: '8vw'
-  },
-  bigDescription: {
-    width: '99vw',
-    height: '45vh',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  blackTxt: {
-    color: '#000000'
-  },
-  descTxt: {
-    color: '#000000',
-    padding: '8px'
-  }
+export default function FullFeaturedCrudGrid() {
+  const [rows, setRows] = React.useState(initialRows);
+  const [rowModesModel, setRowModesModel] = React.useState({});
 
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
+  const columns = [
+    { field: 'name', headerName: 'Name', width: 180, editable: true },
+    {
+      field: 'age',
+      headerName: 'Age',
+      type: 'number',
+      width: 80,
+      align: 'left',
+      headerAlign: 'left',
+      editable: true,
+    },
+    {
+      field: 'joinDate',
+      headerName: 'Join date',
+      type: 'date',
+      width: 180,
+      editable: true,
+    },
+    {
+      field: 'role',
+      headerName: 'Department',
+      width: 220,
+      editable: true,
+      type: 'singleSelect',
+      valueOptions: ['Market', 'Finance', 'Development'],
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{
+                color: 'primary.main',
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
+  ];
+
+  return (
+    <Box
+      sx={{
+        height: 500,
+        width: '100%',
+        '& .actions': {
+          color: 'text.secondary',
+        },
+        '& .textPrimary': {
+          color: 'text.primary',
+        },
+      }}
+    >
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        editMode="row"
+        rowModesModel={rowModesModel}
+        onRowModesModelChange={handleRowModesModelChange}
+        onRowEditStop={handleRowEditStop}
+        processRowUpdate={processRowUpdate}
+        slots={{
+          toolbar: EditToolbar,
+        }}
+        slotProps={{
+          toolbar: { setRows, setRowModesModel },
+        }}
+        sx = {{
+          color: 'white',
+        }}
+      />
+    </Box>
+  );
 }
