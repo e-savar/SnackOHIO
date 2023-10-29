@@ -14,7 +14,7 @@ const rightArrowStyles = {
   position: "absolute",
   top: "50%",
   transform: "translate(0, -50%)",
-  right: "32px",
+  right: "-64px",
   fontSize: "45px",
   color: "#fff",
   zIndex: 1,
@@ -25,7 +25,7 @@ const leftArrowStyles = {
   position: "absolute",
   top: "50%",
   transform: "translate(0, -50%)",
-  left: "32px",
+  left: "-64px",
   fontSize: "45px",
   color: "#fff",
   zIndex: 1,
@@ -57,8 +57,8 @@ const highlightedDotStyle = {
 
 const ImageSlider = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [transformValue, setTransformValue] = useState("scale(1.08)"); // Initial scale value
-  const [opacityValue, setOpacityValue] = useState(0);
+  const [transformValue, setTransformValue] = useState("scale(1)"); // Initial scale value
+  const [opacityValue, setOpacityValue] = useState(1);
 
   const slideStylesWithBackground = {
     ...slideStyles,
@@ -68,32 +68,34 @@ const ImageSlider = ({ slides }) => {
   };
 
   const goToPrevious = () => {
-    setTransformValue("scale(1.08)"); // Set the scaling value for transition
     setOpacityValue(0); // Set the opacity to 0
-    setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
+    setTransformValue("scale(1.08)"); // Set the scaling value for transition
+    setTimeout(() => {
+      setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
+      setOpacityValue(1); // Set the opacity to 1 after the transition
+      setTransformValue("scale(1)"); // Set the scaling to 1.08 after the transition
+    }, 1000); // 1 second for the transition
   };
 
   const goToNext = () => {
-    setTransformValue("scale(1.08)"); // Set the scaling value for transition
     setOpacityValue(0); // Set the opacity to 0
-    setCurrentIndex((currentIndex + 1) % slides.length);
+    setTransformValue("scale(1.08)"); // Set the scaling value for transition
+    setTimeout(() => {
+      setCurrentIndex((currentIndex + 1) % slides.length);
+      setOpacityValue(1); // Set the opacity to 1 after the transition
+      setTransformValue("scale(1)"); // Set the scaling to 1.08 after the transition
+    }, 1000); // 1 second for the transition
   };
 
   const goToSlide = (slideIndex) => {
-    setTransformValue("scale(1.08)"); // Set the scaling value for transition
     setOpacityValue(0); // Set the opacity to 0
-    setCurrentIndex(slideIndex);
+    setTransformValue("scale(1.08)"); // Set the scaling value for transition
+    setTimeout(() => {
+      setCurrentIndex(slideIndex);
+      setOpacityValue(1); // Set the opacity to 1 after the transition
+      setTransformValue("scale(1)"); // Set the scaling to 1.08 after the transition
+    }, 1000); // 1 second for the transition
   };
-
-  useEffect(() => {
-    // After the opacity has transitioned to 0, update the opacity to 1 and scale to 1
-    if (opacityValue === 0) {
-      setTimeout(() => {
-        setOpacityValue(1);
-        setTransformValue("scale(1)");
-      }, 1000); // 1 second for the transition
-    }
-  }, [opacityValue]);
 
   return (
     <div style={sliderStyles}>
